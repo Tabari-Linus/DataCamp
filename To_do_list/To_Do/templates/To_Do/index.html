@@ -3,21 +3,31 @@
 {% block content %}
 <div class="container-fluid">
     <h1 class="text-center">Welcome, </h1>
-    <h2>What would you like to do today</h2>
 </div>
 
 
-<nav class="navbar navbar-light bg-light">
-    <div class="container-fluid">
-      <form class="d-flex inline">
-        <input class="form-control me-2" type="text" placeholder="Enter you task ..." aria-label="Search">
-        <button class="btn btn-outline-success " type="submit">Add_Item</button>
-      </form>
-    </div> 
-  </nav>
-  <div class="ps-2">
-    <ol class="list-group list-group-numbered">
-        <li class="list-group-item">Cras justo odio</li>
-      </ol>
+<div class="row mt-4">
+    <div class="col center">
+        <h2>What would you like to do today</h2>
+        <form class="form-inline" action="{% url 'To_Do:add_task' %}" method="post">
+            {% csrf_token %}
+            <input class="form-control mb-2 mr-sm-2" name="content" type="text" placeholder="Enter you task ...">
+            <button class="btn btn-primary" type="submit">Add_Item</button>
+        </form>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col">
+        <ul class="list-group">
+            {% for to_do_item in to_do_items %}
+            <li class="list-group-item">{{to_do_item.task_to_do}}
+                <div class="float-right">
+                    <button class="btn btn-primary" type="submit">Add_Item</button>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
 </div>
 {% endblock %}
